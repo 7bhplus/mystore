@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الاشتراكات الرقمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-store"></i>
+                <span>متجر الاشتراكات الرقمية</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link active">الرئيسية</a>
+                <a href="#categories" class="nav-link">الفئات</a>
+                <a href="#about" class="nav-link">من نحن</a>
+                <a href="#contact" class="nav-link">اتصل بنا</a>
+            </nav>
+            <div class="nav-actions">
+                <div class="currency-selector">
+                    <select id="currency">
+                        <option value="USD">USD</option>
+                        <option value="SAR">SAR</option>
+                    </select>
+                </div>
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="login-btn" onclick="showLogin()">
+                    <i class="fas fa-user"></i>
+                    تسجيل الدخول
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>اشتراكاتك الرقمية في مكان واحد</h1>
+                <p>احصل على أفضل الاشتراكات الرقمية بأسعار مميزة - نتفليكس، سبوتيفاي، أدوبي وأكثر</p>
+                <button class="cta-btn" onclick="scrollToProducts()">
+                    تصفح المنتجات
+                    <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
+            <div class="hero-image">
+                <div class="floating-cards">
+                    <div class="service-card netflix">
+                        <i class="fab fa-netflix"></i>
+                        <span>Netflix</span>
+                    </div>
+                    <div class="service-card spotify">
+                        <i class="fab fa-spotify"></i>
+                        <span>Spotify</span>
+                    </div>
+                    <div class="service-card adobe">
+                        <i class="fab fa-adobe"></i>
+                        <span>Adobe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2>الفئات الشائعة</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterByCategory('ترفيه')">
+                    <i class="fas fa-play-circle"></i>
+                    <h3>ترفيه</h3>
+                    <p>نتفليكس، ديزني بلس، يوتيوب بريميوم</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('موسيقى')">
+                    <i class="fas fa-music"></i>
+                    <h3>موسيقى</h3>
+                    <p>سبوتيفاي، أبل ميوزك، ساوند كلاود</p>
+                </div>
+                <div class="category-card" onclick="filterByCategory('إنتاجية')">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>إنتاجية</h3>
+                    <p>أدوبي، مايكروسوفت، كانفا</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="products-header">
+                <h2>المنتجات المتاحة</h2>
+                <div class="filters">
+                    <button class="filter-btn active" onclick="filterByCategory('all')">الكل</button>
+                    <button class="filter-btn" onclick="filterByCategory('ترفيه')">ترفيه</button>
+                    <button class="filter-btn" onclick="filterByCategory('موسيقى')">موسيقى</button>
+                    <button class="filter-btn" onclick="filterByCategory('إنتاجية')">إنتاجية</button>
+                </div>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>الإجمالي: <span id="cartTotal">0</span></span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">
+                إتمام الشراء
+                <i class="fas fa-credit-card"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>تسجيل الدخول</h3>
+                <button class="close-modal" onclick="hideLogin()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="login-form" onsubmit="login(event)">
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label>كلمة المرور</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="submit-btn">تسجيل الدخول</button>
+            </form>
+            <div class="modal-footer">
+                <p>ليس لديك حساب؟ <a href="#" onclick="showRegister()">إنشاء حساب جديد</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>متجر الاشتراكات الرقمية</h4>
+                    <p>وجهتك الأولى للحصول على أفضل الاشتراكات الرقمية بأسعار مميزة</p>
+                </div>
+                <div class="footer-section">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#categories">الفئات</a></li>
+                        <li><a href="#about">من نحن</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>خدمة العملاء</h4>
+                    <ul>
+                        <li><a href="#">الأسئلة الشائعة</a></li>
+                        <li><a href="#">سياسة الإرجاع</a></li>
+                        <li><a href="#">الدعم الفني</a></li>
+                        <li><a href="#">شروط الاستخدام</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>تواصل معنا</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 متجر الاشتراكات الرقمية. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
